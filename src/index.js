@@ -1,23 +1,13 @@
 import chalk from 'chalk'
 import { argv } from 'yargs'
 
-/* eslint-disable no-console */
-
-export default (apis = [], options) => {
-  const {
-    force = false,
-    enabled = true,
-    logs = true,
-  } = options || {}
-
+export default (apis = [], { force = false, enabled = true, logger = () => {} } = {}) => {
   if (!(argv.mockups || enabled)) {
     return (req, res, next) => next()
   }
 
-  if (logs) {
-    console.log(chalk.green('[MOCKUPS] Using mockups middleware to simulate backend apis'))
-    console.log(chalk.green('[MOCKUPS] Mocked apis:'))
-  }
+  logger(chalk.green('[MOCKUPS] Using mockups middleware to simulate backend apis'))
+  logger(chalk.green('[MOCKUPS] Mocked apis:'))
 
   let availableApis = apis
   if (!(argv['force-mockups'] || force)) {
@@ -25,9 +15,7 @@ export default (apis = [], options) => {
   }
 
   availableApis.forEach(api => {
-    if (logs) {
-      console.log(chalk.green(`[MOCKUPS] ${api.pattern}`))
-    }
+    logger(chalk.green(`[MOCKUPS] ${api.pattern}`))
   })
 
   return (req, res, next) => {
@@ -44,12 +32,8 @@ export default (apis = [], options) => {
     const status = api.status || 200
     res.status(status)
 
-    if (logs) {
-      console.log(chalk.green(`[MOCKUPS] Mocked api : [${status}] ${req.url}`))
-    }
+    logger(chalk.green(`[MOCKUPS] Mocked api : [${status}] ${req.url}`))
 
     return res.send(api.body ? api.body(req) : '')
   }
 }
-
-/* eslint-enable no-console */

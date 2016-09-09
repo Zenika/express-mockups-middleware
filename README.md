@@ -1,11 +1,13 @@
 # express-mockups-middleware
 
+## Requirements
+
+You will need Node v6 or later version.
+
 ## What
 
 This is an express `middleware`.
-
 This middleware purpose is to serve mockups on proxified HTTP requests.
-
 This is convenient during development to separate concerns.
 
 ## Install
@@ -14,9 +16,9 @@ This is convenient during development to separate concerns.
 
 ## use
 
-You should pass as first parameter of the middleware an array of apis. api objects must respect the following structure.
+You should pass an array of apis as first parameter of the middleware. api objects must respect the following structure.
 
-Property | Needed | Type | Description
+Property | Required | Type | Description
 ----------|--------|---------------|-------------
 `pattern` | yes | String | A pattern that `request.url` property should match to be mocked. It will be passed as RegExp argument.
 `enabled` | no | Boolean | A boolean that determine if the middleware should handle this `api`.
@@ -26,11 +28,13 @@ Property | Needed | Type | Description
 
 You can also add an optional configuration object as second parameter.
 
-Parameter | Needed | Default value | Description
+Parameter | Required | Default value | Description
 ----------|--------|---------------|-------------
 `enabled` | no | `true` | A boolean that determine if the middleware is `enabled` or not.
 `force` | no | `false` | Set to true it tells the middleware to ignore `enabled` property of `apis` objects.
-`logs` | no | `true` | Set to `false` it disable console logs.
+`logger` | no | `empty function` | Pass your own logger function that takes a string as parameter.
+
+The middleware call `next` function of `express` when no pattern is matched. Otherwise the `response` is instantly sent to client.
 
 ## Example
 
@@ -68,3 +72,5 @@ app.use(proxy('/api', {
 
 app.listen(8080)
 ```
+
+HTTP requests that match one of the patterns listed in apis parameter will be mocked but others will be sent to the proxified backend.
