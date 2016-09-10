@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Serve mockups on proxified requests",
   "main": "index.js",
+  "engines" : { "node" : ">=6.0.0" },
   "peerDependencies": {
     "chalk": "^1.1.3",
     "yargs": "^5.0.0"
