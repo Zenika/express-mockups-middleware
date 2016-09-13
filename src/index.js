@@ -8,7 +8,6 @@ const log = (logger, message) => {
 }
 
 export default (apis = [], { force = false, enabled = true, logger = undefined } = {}) => {
-
   if (!(argv.mockups || enabled)) {
     return (req, res, next) => next()
   }
