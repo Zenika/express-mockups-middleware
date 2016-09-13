@@ -14,7 +14,7 @@ This is convenient during development to separate concerns.
 
 `npm i --save-dev express-mockups-middleware`
 
-## use
+## Use
 
 You should pass an array of apis as first parameter of the middleware. api objects must respect the following structure.
 
