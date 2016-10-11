@@ -1,8 +1,8 @@
 {
   "name": "express-mockups-middleware",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Serve mockups on proxified requests",
-  "main": "index.js",
+  "main": "build/index.js",
   "engines" : { "node" : ">=6.0.0" },
   "peerDependencies": {
     "chalk": "1.1.3",
